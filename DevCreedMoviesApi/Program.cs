@@ -23,7 +23,7 @@ builder.Services.AddSwaggerGen(options =>
         Contact = new OpenApiContact
         {
             Name = "Andrew",
-            Email = "andrewayman1000@gmail.com",
+            Email = "MohabEffat@gmail.com",
             Url = new Uri("https://www.google.com"),
         },
         License = new OpenApiLicense
