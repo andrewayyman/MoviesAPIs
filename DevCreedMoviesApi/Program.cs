@@ -24,12 +24,12 @@ builder.Services.AddSwaggerGen(options =>
         {
             Name = "Andrew",
             Email = "MohabEffat@gmail.com",
-            Url = new Uri("https://www.google.com"),
+            Url = new Uri("https://www.facebook.com"),
         },
         License = new OpenApiLicense
         {
             Name = "MyLicense",
-            Url = new Uri("https://www.google.com")
+            Url = new Uri("https://www.facebook.com")
         }
     }) ;
 
