@@ -10,7 +10,12 @@ namespace DevCreedMoviesApi.Models
 
         [MaxLength(100)]
         public string Name { get; set; }
+
         public string shit {  get; set; }
+        public int mynumber { get; set; }     
+        public string Name2 { get; set; }
+        public string Name3 { get; set; }
     }
+
 
 }
