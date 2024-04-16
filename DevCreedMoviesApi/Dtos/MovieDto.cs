@@ -10,7 +10,7 @@ namespace DevCreedMoviesApi.Dtos
         public int Year { get; set; }
         public double Rate { get; set; }
         public string StoreLine { get; set; }
-        public IFormFile Poster { get; set; } // to store Media
+        public IFormFile? Poster { get; set; } // to store Media
         public byte GenreId { get; set; }
     }
 }
