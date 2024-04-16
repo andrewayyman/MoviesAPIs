@@ -10,9 +10,6 @@ namespace DevCreedMoviesApi.Models
 
         [MaxLength(100)]
         public string Name { get; set; }
-        public string discraption { get; set; }
-        
-        public int numbers { get; set; }
     }
 
 }
