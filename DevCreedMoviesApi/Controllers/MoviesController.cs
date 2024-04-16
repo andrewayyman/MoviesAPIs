@@ -7,19 +7,63 @@ namespace DevCreedMoviesApi.Controllers
     [ApiController]
     public class MoviesController : ControllerBase
     {
+        // that's called dependency injection
+
+
         private readonly AppDbContext _context;
         public MoviesController( AppDbContext context )
         {
             _context = context;
         }
+        // to allow only some exetesnions and size only for the image or media file
+        private new List<string> _allowedExtensions = new List<string> { ".jpg", ".png" };
+        private long _maxAllowedPosterSize = 1024 * 1024; // 1MB
 
         // Endpoints //
+        #region ViewMovies
+        [HttpGet] // api/Movies
+        public async Task<IActionResult> GetAllMoviesAsync()
+        {
+            var Movies = await _context.Movies
+                .Include(g => g.Genre)
+                .OrderByDescending(r => r.Rate)
+                .ToListAsync();
 
+            return Ok(Movies);
+        }
+        #endregion
+
+        #region ViewMovieById
+        [HttpGet("id")]
+        public async Task<IActionResult> GetMovieByIdAsync(int id)
+        {
+           var Movie = await _context.Movies.FindAsync(id);
+            if(Movie == null)
+                return NotFound();
+            return Ok(Movie);
+        }
+
+        #endregion
 
         #region AddMovie and handling IFormFile ( image or media )
-        [HttpPost]
+        [HttpPost] // api/Movies    
         public async Task<IActionResult> CreateAsync([FromForm]MovieDto dto)
         {
+            #region Some Validation
+            // to validate the image extesnion
+            if ( !_allowedExtensions.Contains(Path.GetExtension(dto.Poster.FileName).ToLower()))
+                return BadRequest("Invalid file extension");
+
+            // to validate the image size
+            if(dto.Poster.Length > _maxAllowedPosterSize)
+                return BadRequest("Invalid file size");
+
+            // to validate the entered genre id
+            var isValiedGenre = await _context.Genres.AnyAsync(d=>d.Id == dto.GenreId);
+            if(!isValiedGenre )
+                return BadRequest("Invalid genre id");
+            #endregion
+
             // to store the image in the database we need to convert it to byte array
             using var dataStream = new MemoryStream();
             await dto.Poster.CopyToAsync(dataStream);
