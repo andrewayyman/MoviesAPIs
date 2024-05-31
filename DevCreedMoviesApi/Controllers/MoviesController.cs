@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
 namespace DevCreedMoviesApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class MoviesController : ControllerBase
     {
-        // that's called dependency injection
+        // dependency injection
 
 
         private readonly AppDbContext _context;
@@ -19,28 +18,56 @@ namespace DevCreedMoviesApi.Controllers
         private new List<string> _allowedExtensions = new List<string> { ".jpg", ".png" };
         private long _maxAllowedPosterSize = 1024 * 1024; // 1MB
 
-        // Endpoints //
-        #region ViewMovies
+        #region Endpoints
+
+        #region GetMovies
         [HttpGet] // api/Movies
         public async Task<IActionResult> GetAllMoviesAsync()
         {
             var Movies = await _context.Movies
                 .Include(g => g.Genre)
                 .OrderByDescending(r => r.Rate)
+                .Select( m => new MovieDetailsDto
+                {
+                    Id = m.Id,
+                    GenreId = m.GenreId,
+                    GenreName = m.Genre.Name, // to get data from complex object
+                    Poster = m.Poster,
+                    Rate = m.Rate,
+                    Storeline = m.StoreLine,
+                    Title = m.Title,
+                    Year = m.Year
+                })
                 .ToListAsync();
 
             return Ok(Movies);
         }
         #endregion
 
-        #region ViewMovieById
+        #region GetMovieById
         [HttpGet("id")]
         public async Task<IActionResult> GetMovieByIdAsync(int id)
         {
-           var Movie = await _context.Movies.FindAsync(id);
+            // here we cannot use findasync with include , then we will use firstordefaultasync
+            var Movie = await _context.Movies
+                .Include(g => g.Genre)
+                .FirstOrDefaultAsync( m => m.Id == id ) ;
+
             if(Movie == null)
                 return NotFound();
-            return Ok(Movie);
+            var dto = new MovieDetailsDto
+            {
+                Id = Movie.Id,
+                GenreId = Movie.GenreId,
+                GenreName = Movie.Genre?.Name, // to accept null value
+                Poster = Movie.Poster,
+                Rate = Movie.Rate,
+                Storeline = Movie.StoreLine,
+                Title = Movie.Title,
+                Year = Movie.Year
+            };
+
+            return Ok(dto);
         }
 
         #endregion
@@ -91,7 +118,7 @@ namespace DevCreedMoviesApi.Controllers
 
         #endregion
 
-
+        #endregion
 
 
 

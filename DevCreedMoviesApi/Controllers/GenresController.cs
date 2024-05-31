@@ -17,9 +17,9 @@ namespace DevCreedMoviesApi.Controllers
             _context = context;
         }
 
-        // Endpoints // 
+        #region EndPoints
 
-        #region Get request and using of async
+        #region GetGenres
         [HttpGet] // api/Genres
         public async Task<IActionResult> GetAllSync()
         {
@@ -41,8 +41,7 @@ namespace DevCreedMoviesApi.Controllers
         */
         #endregion
 
-
-        #region Post request and using of Dto
+        #region AddGenre
         [HttpPost] // api/Genre
         public async Task<IActionResult> CreateAsync(CreateGenreDto dto)
         {
@@ -62,8 +61,7 @@ namespace DevCreedMoviesApi.Controllers
         // if the data is valid we add it to the database with AddAsync method and then we save the changes
         #endregion
 
-
-        #region Update request from body , firstordefault
+        #region UpdateGenre
         [HttpPut("{id}") ] // api/Genres/1 , here we used id to specify the genre that we want to update
         public async Task<IActionResult> UpdateAsync(int id , [FromBody] CreateGenreDto dto)
         {
@@ -80,8 +78,7 @@ namespace DevCreedMoviesApi.Controllers
 
         #endregion
 
-
-        #region Delete request 
+        #region DeleteGenre
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
@@ -95,8 +92,9 @@ namespace DevCreedMoviesApi.Controllers
         }
 
         // same as the update method but we used remove method to remove the genre from the database
-       
+
         #endregion
 
+        #endregion
     }
 }
