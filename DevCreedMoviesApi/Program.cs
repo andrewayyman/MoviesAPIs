@@ -9,31 +9,26 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 options.UseSqlServer(connectionString));
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddCors();
 builder.Services.AddTransient<IGenresService, GenresService>();
-
+builder.Services.AddTransient<IMoviesService, MoviesService>();
+builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "v1",
-        Title = "MyAPi",
-        Description = "My First Api",
+        Title = "Movies Api",
+        Description = "Crud Project",
         TermsOfService = new Uri("https://www.google.com"),
         Contact = new OpenApiContact
         {
             Name = "Andrew",
-            Email = "MohabEffat@gmail.com",
+            Email = "Andrewayman1000@gmail.com",
             Url = new Uri("https://www.facebook.com"),
-        },
-        License = new OpenApiLicense
-        {
-            Name = "MyLicense",
-            Url = new Uri("https://www.facebook.com")
         }
-    }) ;
+    });
 
 
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -67,18 +62,15 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 app.UseHttpsRedirection();
 app.UseCors(c => c.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()); // to control how can access my api from frontend pov
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

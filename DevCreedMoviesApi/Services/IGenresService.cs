@@ -7,6 +7,7 @@
         Task<Genre> Add(Genre genre);
         Genre Update(Genre genre);
         Genre Delete(Genre genre);
+        Task<bool> IsValidGenre( byte id );
 
 
 

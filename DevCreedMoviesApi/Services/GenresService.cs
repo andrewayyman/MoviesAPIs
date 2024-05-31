@@ -13,7 +13,7 @@ namespace DevCreedMoviesApi.Services
 
         public async Task<IEnumerable<Genre>> GetAll()
         {
-            return await _context.Genres.OrderBy(g => g.Name).ToListAsync();
+            return await _context.Genres.OrderBy(g => g.Id).ToListAsync();
         }
 
         public async Task<Genre> GetByID(byte id )
@@ -44,6 +44,9 @@ namespace DevCreedMoviesApi.Services
             return genre;
         }
 
-
+        public Task<bool> IsValidGenre( byte id )
+        {
+            return _context.Genres.AnyAsync(d => d.Id == id);
+        }
     }
 }

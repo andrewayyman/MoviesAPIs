@@ -1,8 +1,5 @@
 ﻿
 
-using DevCreedMoviesApi.Dtos;
-using DevCreedMoviesApi.Services;
-
 namespace DevCreedMoviesApi.Controllers
 {
     [Route("api/[controller]")]
@@ -28,18 +25,14 @@ namespace DevCreedMoviesApi.Controllers
             var Genres = await _genreservice.GetAll();
             return Ok(Genres);
         }
-        // we used async cuz we are using the database and it's an I/O operation
-        // it helps to free the thread to do other things while waiting for the database to respond
-        // if we not using async the thread will be blocked until the database responds
-        //tolistasync() is used to convert the data to a list
 
-        // another way to implement without using async :
         /*
-        public IActionResult GetAllSync()
-        {
-            var Genres = _context.Genres.OrderBy(g=>g.Name).ToList();
-            return Ok(Genres);
-        }
+         
+         - we used async cuz we are using the database and it's an I/O operation
+         - it helps to free the thread to do other things while waiting for the database to respond
+         - if we not using async the thread will be blocked until the database responds
+         - tolistasync() is used to convert the data to a list
+
         */
         #endregion
 
@@ -52,14 +45,18 @@ namespace DevCreedMoviesApi.Controllers
             return Ok(genre); // return status code 200
         }
 
-        //Dto is used to validate the data before sending it to the database
-        // it's used to make sure that the data is valid before sending it to the database
-        // we used it by add dtos folder and add a class inside it and add the properties that we want to validate
-        // here we created CreateGenreDto and added the property that we want to validate
-        // we used it in the CreateAsync method to validate the data before sending it to the database
-        // we get from data with type CreateGenreDto and we validate it and then we send it to the database
-        // we create genre object and we assign the name property from the dto object
-        // if the data is valid we add it to the database with AddAsync method and then we save the changes
+        /*
+         
+        - Dto is used to validate the data before sending it to the database
+        - it's used to make sure that the data is valid before sending it to the database
+        - we used it by add dtos folder and add a class inside it and add the properties that we want to validate
+        - here we created CreateGenreDto and added the property that we want to validate
+        - we used it in the CreateAsync method to validate the data before sending it to the database
+        - we get from data with type CreateGenreDto and we validate it and then we send it to the database
+        - we create genre object and we assign the name property from the dto object
+        - if the data is valid we add it to the database with AddAsync method and then we save the changes
+
+        */
         #endregion
 
         #region UpdateGenre
@@ -72,10 +69,14 @@ namespace DevCreedMoviesApi.Controllers
             _genreservice.Update(genre);
             return Ok(genre);
         }
-        // [from body ]we used it to get the data from the body of the request and we used it with the dto object to validate the data
-        // singleordefaultasync is return the first element of the sequence or a default value if the sequence contains no elements while the default value is null
-        // and we if we used async method so we have to use await keyword to wait for the database to respond
 
+        /*
+         
+        - [from body ]we used it to get the data from the body of the request and we used it with the dto object to validate the data
+        - singleordefaultasync is return the first element of the sequence or a default value if the sequence contains no elements while the default value is null
+        - and we if we used async method so we have to use await keyword to wait for the database to respond
+        
+        */
 
         #endregion
 
