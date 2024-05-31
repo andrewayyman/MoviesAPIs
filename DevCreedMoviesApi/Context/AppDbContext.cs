@@ -1,5 +1,5 @@
 ﻿
-namespace DevCreedMoviesApi.Context
+namespace MoviesApi.Context
 {
     public class AppDbContext : DbContext
     {

@@ -1,4 +1,4 @@
-﻿namespace DevCreedMoviesApi.Services
+﻿namespace MoviesApi.Services
 {
     public interface IGenresService
     {

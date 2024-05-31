@@ -1,4 +1,4 @@
-﻿namespace DevCreedMoviesApi.Models
+﻿namespace MoviesApi.Models
 {
     public class Movie
     {

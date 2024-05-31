@@ -1,0 +1,323 @@
+{
+	"info": {
+		"_postman_id": "41aff8c0-0a00-4146-a10f-912ad252797e",
+		"name": "MoviesAPIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34247348"
+	},
+	"item": [
+		{
+			"name": "GetGenres",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44333/api/Genres",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44333",
+					"path": [
+						"api",
+						"Genres"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddGenre",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"test2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44333/api/Genres",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44333",
+					"path": [
+						"api",
+						"Genres"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateGenre",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"test3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44333/api/Genres/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44333",
+					"path": [
+						"api",
+						"Genres",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteGenre",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44333/api/Genres/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44333",
+					"path": [
+						"api",
+						"Genres",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetMovies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44333/api/Movies",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44333",
+					"path": [
+						"api",
+						"Movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetMovieByID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44333/api/Movies/id?id=3",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44333",
+					"path": [
+						"api",
+						"Movies",
+						"id"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetMovieByGenreID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44333/api/Movies/GetByGenreId?genreId=2",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44333",
+					"path": [
+						"api",
+						"Movies",
+						"GetByGenreId"
+					],
+					"query": [
+						{
+							"key": "genreId",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddMovie",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Title",
+							"value": "Tarazan",
+							"type": "text"
+						},
+						{
+							"key": "Year",
+							"value": "2001",
+							"type": "text"
+						},
+						{
+							"key": "Rate",
+							"value": "9.0",
+							"type": "text"
+						},
+						{
+							"key": "StoreLine",
+							"value": "Cartoon",
+							"type": "text"
+						},
+						{
+							"key": "Poster",
+							"type": "file",
+							"src": "/E:/Computer Science/CodeTest/DevCreedMoviesApi/DevCreedMoviesApi/Uploads/ShawshankRedemptionMoviePoster.jpg"
+						},
+						{
+							"key": "GenreId",
+							"value": "11",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost:44333/api/Movies",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44333",
+					"path": [
+						"api",
+						"Movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateMovie",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Title",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "Year",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "Rate",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "StoreLine",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "Poster",
+							"type": "file",
+							"src": []
+						},
+						{
+							"key": "GenreId",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost:44333/api/Movies/6",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44333",
+					"path": [
+						"api",
+						"Movies",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteMovie",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44333/api/Movies/5",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44333",
+					"path": [
+						"api",
+						"Movies",
+						"5"
+					],
+					"query": [
+						{
+							"key": "66",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

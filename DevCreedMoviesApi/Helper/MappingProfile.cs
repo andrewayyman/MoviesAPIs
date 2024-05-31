@@ -1,5 +1,5 @@
 ﻿
-namespace DevCreedMoviesApi.Helper
+namespace MoviesApi.Helper
 {
     public class Mappingprofile : Profile
     {

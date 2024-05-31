@@ -1,5 +1,5 @@
 ﻿
-namespace DevCreedMoviesApi.Dtos
+namespace MoviesApi.Dtos
 {
     // we copy all movie model prop except the id and navigation property
    // and we add the poster property as IFormFile cuz it's media file or image

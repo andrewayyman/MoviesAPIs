@@ -1,6 +1,6 @@
 ﻿
 
-namespace DevCreedMoviesApi.Services
+namespace MoviesApi.Services
 {
     public class GenresService : IGenresService
     {

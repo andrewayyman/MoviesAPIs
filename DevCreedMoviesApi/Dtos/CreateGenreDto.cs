@@ -1,7 +1,7 @@
 ﻿
 // dto is data transfer object is responsible for transfer data in and out the apiA
 
-namespace DevCreedMoviesApi.Dtos
+namespace MoviesApi.Dtos
 {
     public class CreateGenreDto
     {

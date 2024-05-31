@@ -1,6 +1,6 @@
 ﻿
 
-namespace DevCreedMoviesApi.Controllers
+namespace MoviesApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

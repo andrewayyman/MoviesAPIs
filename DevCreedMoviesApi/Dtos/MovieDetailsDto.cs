@@ -1,4 +1,4 @@
-﻿namespace DevCreedMoviesApi.Dtos
+﻿namespace MoviesApi.Dtos
 {
     public class MovieDetailsDto
     {

@@ -1,6 +1,6 @@
-@DevCreedMoviesApi_HostAddress = http://localhost:5229
+@MoviesApi_HostAddress = http://localhost:5229
 
-GET {{DevCreedMoviesApi_HostAddress}}/weatherforecast/
+GET {{MoviesApi_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###

@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace DevCreedMoviesApi.Migrations
+namespace MoviesApi.Migrations
 {
     /// <inheritdoc />
     public partial class Init : Migration
