@@ -26,7 +26,7 @@ builder.Services.AddSwaggerGen(options =>
         {
             Name = "Andrew",
             Email = "Andrewayman1000@gmail.com",
-            Url = new Uri("https://www.facebook.com"),
+            Url = new Uri("https://github.com/andrewayyman"),
         }
     });
 
