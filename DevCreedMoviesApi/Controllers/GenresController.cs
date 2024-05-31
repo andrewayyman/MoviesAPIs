@@ -8,7 +8,7 @@ namespace DevCreedMoviesApi.Controllers
     [ApiController]
     public class GenresController : ControllerBase
     {
-        // pit's private cuz we don't want to expose it to the outside world
+        // it's private cuz we don't want to expose it to the outside world
         private readonly AppDbContext _context;
 
         // this constructor is used to inject the context into the controller
