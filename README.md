@@ -27,11 +27,6 @@ The Movies API allows users to manage a collection of movies, including their ti
 - Swagger for API documentation.
 - Dependency Injection for services.
 
-## Prerequisites
-
-- [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet/6.0)
-- [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
-- [Postman](https://www.postman.com/downloads/)
 
 ## Postman Collection
 
