@@ -28,7 +28,6 @@ The Movies API allows users to manage a collection of movies, including their ti
 - Swagger for API documentation.
 - Dependency Injection for services.
 
-
 ## Postman Collection
 
 A Postman collection is provided to facilitate testing and exploring the API. The collection includes all the endpoints with sample requests and responses.
