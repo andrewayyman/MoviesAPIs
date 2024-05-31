@@ -1,6 +1,7 @@
 ﻿
 
 using DevCreedMoviesApi.Dtos;
+using DevCreedMoviesApi.Services;
 
 namespace DevCreedMoviesApi.Controllers
 {
@@ -8,14 +9,15 @@ namespace DevCreedMoviesApi.Controllers
     [ApiController]
     public class GenresController : ControllerBase
     {
-        // it's private cuz we don't want to expose it to the outside world
-        private readonly AppDbContext _context;
+        private readonly IGenresService _genreservice;
 
-        // this constructor is used to inject the context into the controller
-        public GenresController( AppDbContext context )
+        // Dependency Injection , inject the service into the controller
+        public GenresController( IGenresService genreservice )
         {
-            _context = context;
+            _genreservice = genreservice;
         }
+
+
 
         #region EndPoints
 
@@ -23,7 +25,7 @@ namespace DevCreedMoviesApi.Controllers
         [HttpGet] // api/Genres
         public async Task<IActionResult> GetAllSync()
         {
-            var Genres = await _context.Genres.OrderBy(g=>g.Name).ToListAsync();
+            var Genres = await _genreservice.GetAll();
             return Ok(Genres);
         }
         // we used async cuz we are using the database and it's an I/O operation
@@ -46,9 +48,8 @@ namespace DevCreedMoviesApi.Controllers
         public async Task<IActionResult> CreateAsync(CreateGenreDto dto)
         {
             var genre = new Genre { Name = dto.Name };
-            await _context.Genres.AddAsync(genre);
-            _context.SaveChanges();
-            return Ok(genre);          // return status code 200
+            await _genreservice.Add(genre);
+            return Ok(genre); // return status code 200
         }
 
         //Dto is used to validate the data before sending it to the database
@@ -63,12 +64,12 @@ namespace DevCreedMoviesApi.Controllers
 
         #region UpdateGenre
         [HttpPut("{id}") ] // api/Genres/1 , here we used id to specify the genre that we want to update
-        public async Task<IActionResult> UpdateAsync(int id , [FromBody] CreateGenreDto dto)
+        public async Task<IActionResult> UpdateAsync(byte id , [FromBody] CreateGenreDto dto)
         {
-            var genre = await _context.Genres.SingleOrDefaultAsync(g => g.Id == id);
+            var genre = await _genreservice.GetByID(id);
             if (genre == null) { return NotFound("No Genre Found"); }
             genre.Name = dto.Name;
-            _context.SaveChanges();
+            _genreservice.Update(genre);
             return Ok(genre);
         }
         // [from body ]we used it to get the data from the body of the request and we used it with the dto object to validate the data
@@ -80,13 +81,12 @@ namespace DevCreedMoviesApi.Controllers
 
         #region DeleteGenre
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAsync(int id)
+        public async Task<IActionResult> DeleteAsync(byte id)
         {
-            var genre = await _context.Genres.SingleOrDefaultAsync( g=>g.Id == id);
+            var genre = await _genreservice.GetByID(id);
             if (genre == null) { return NotFound("No Genre Found to Delete"); }
 
-            _context.Remove(genre);      // no removeasync method so we used remove method
-            _context.SaveChanges();
+            _genreservice.Delete(genre);
             return Ok(genre);
 
         }
