@@ -8,15 +8,16 @@ The Movies API allows users to manage a collection of movies, including their ti
 
 ## Technologies Used
 
+- C#
 - ASP.NET Core
 - Entity Framework Core
-- AutoMapper
 - LINQ
-- Swagger (Swashbuckle)
-- Postman
+- AutoMapper
 - SQL Server
 - Dependency Injection
-
+- Swagger (Swashbuckle)
+- Postman
+  
 ## Features
 
 - Create, read, update, and delete movies and genres.
