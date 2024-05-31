@@ -26,7 +26,7 @@ namespace DevCreedMoviesApi.Controllers
         {
             var Movies = await _context.Movies
                 .Include(g => g.Genre)
-                .OrderByDescending(r => r.Rate)
+                .OrderByDescending(r => r.Id)
                 .Select( m => new MovieDetailsDto
                 {
                     Id = m.Id,
@@ -72,23 +72,52 @@ namespace DevCreedMoviesApi.Controllers
 
         #endregion
 
+        #region GetMovieByGenreID
+        [HttpGet("GetByGenreId")]
+        public async Task<IActionResult> GetByGenreIdAsync( byte genreId )
+        {
+            var Movies = await _context.Movies
+                .Include(g => g.Genre)
+                .Where(m => m.GenreId == genreId)
+                .OrderByDescending(r => r.Rate)
+                .Select(m => new MovieDetailsDto
+                {
+                    Id = m.Id,
+                    GenreId = m.GenreId,
+                    GenreName = m.Genre.Name, // to get data from complex object
+                    Poster = m.Poster,
+                    Rate = m.Rate,
+                    Storeline = m.StoreLine,
+                    Title = m.Title,
+                    Year = m.Year
+                })
+                .ToListAsync();
+
+            return Ok(Movies);
+        }
+
+
+        #endregion
+
         #region AddMovie and handling IFormFile ( image or media )
         [HttpPost] // api/Movies    
         public async Task<IActionResult> CreateAsync([FromForm]MovieDto dto)
         {
             #region Some Validation
+            // validate if poster not sent
+            if (dto.Poster == null) return BadRequest("Poster is Required");
+
             // to validate the image extesnion
             if ( !_allowedExtensions.Contains(Path.GetExtension(dto.Poster.FileName).ToLower()))
                 return BadRequest("Invalid file extension");
 
             // to validate the image size
-            if(dto.Poster.Length > _maxAllowedPosterSize)
-                return BadRequest("Invalid file size");
+            if(dto.Poster.Length > _maxAllowedPosterSize) return BadRequest("Invalid file size");
 
             // to validate the entered genre id
             var isValiedGenre = await _context.Genres.AnyAsync(d=>d.Id == dto.GenreId);
-            if(!isValiedGenre )
-                return BadRequest("Invalid genre id");
+            if(!isValiedGenre ) return BadRequest("Invalid genre id");
+
             #endregion
 
             // to store the image in the database we need to convert it to byte array
@@ -117,6 +146,71 @@ namespace DevCreedMoviesApi.Controllers
 
 
         #endregion
+
+        #region DeleteMovie
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync( int id )
+        {
+            var movie = await _context.Movies.FindAsync(id);
+            if ( movie == null ) { return NotFound("No Movie Found to Delete"); }
+
+            _context.Remove(movie);      
+            _context.SaveChanges();
+            return Ok(movie);
+
+        }
+
+        #endregion
+
+        #region UpdateMovie
+        [HttpPut("{id}")] 
+        public async Task<IActionResult> UpdateAsync( int id, [FromForm] MovieDto dto )
+        {
+            var movie = await _context.Movies.SingleOrDefaultAsync(g => g.Id == id);
+            if ( movie == null ) { return NotFound("No Genre Found"); }
+
+            #region Some Validation
+
+            // to validate the entered genre id
+            var isValiedGenre = await _context.Genres.AnyAsync(d => d.Id == dto.GenreId);
+            if ( !isValiedGenre )
+                return BadRequest("Invalid genre id");
+
+            // to update the poster optioanlly
+            if ( dto.Poster != null )
+            {
+                // to validate the image extesnion
+                if ( !_allowedExtensions.Contains(Path.GetExtension(dto.Poster.FileName).ToLower()) )
+                    return BadRequest("Invalid file extension");
+
+                // to validate the image size
+                if ( dto.Poster.Length > _maxAllowedPosterSize )
+                    return BadRequest("Invalid file size");
+
+                // to store the image in the database we need to convert it to byte array
+                using var dataStream = new MemoryStream();
+                await dto.Poster.CopyToAsync(dataStream);
+                movie.Poster = dataStream.ToArray();
+            }
+
+            
+            #endregion
+
+            movie.Title = dto.Title;
+            movie.GenreId = dto.GenreId;
+            movie.Rate = dto.Rate;
+            movie.StoreLine = dto.StoreLine;
+            movie.Year = dto.Year;
+            // optional to update the poster 
+
+            _context.SaveChanges();
+            return Ok(movie);
+        }
+    
+
+        #endregion
+
+
 
         #endregion
 
